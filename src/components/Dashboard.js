@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Loading from "./Loading";
 import classnames from "classnames";
+import Panel from "./Panel";
 
 
 // Mock data
@@ -28,14 +29,19 @@ const data = [
   }
 ];
 
-
-
-
 class Dashboard extends Component {
+ 
   state = {
     loading: false,
-    focused: 1,
   };
+ 
+  selectPanel(id) {
+    this.setState(previousState => ({
+      focused: previousState.focused !== null ? null : id
+    }));
+  }
+
+
 
   render() {
     const dashboardClasses = classnames("dashboard", {
@@ -53,6 +59,7 @@ class Dashboard extends Component {
       id={panel.id}
       label={panel.label}
       value={panel.value}
+      onSelect={event => this.selectPanel(panel.id)}
      />
     ));
 
